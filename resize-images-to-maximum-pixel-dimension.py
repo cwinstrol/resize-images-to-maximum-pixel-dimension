@@ -1,10 +1,13 @@
-#dn=''
-def imgs_resize(dn):
-    for p,ds,fs in os.walk(dn):
-        p=os.path.join(p,'')
-        if p.endswith('ir\\'):
-            for f in fs:
-                with Image.open(os.path.join(p+f)) as image:
+#overwrites files
+
+from PIL import Image
+from PIL import ImageOps
+#dir=''
+def imgs_resize():
+    for p,ds,fs in os.walk(dir):
+        for f in fs:
+            if f.endswith(('jpg','jpeg' or 'png')):
+                with Image.open(p+'\\'+f) as image:
                     w,h=image.size
                     if w>1440 or h>1440:
                         if (w>h):
@@ -16,4 +19,4 @@ def imgs_resize(dn):
                             nh=1440
                             image=image.resize((nw,nh),Image.ANTIALIAS)
                     image=ImageOps.exif_transpose(image)
-                    image.save(p[:-3]+f,quality=40,optimize=True)
+                    image.save(p+'\\'+f,quality=40,optimize=True)
